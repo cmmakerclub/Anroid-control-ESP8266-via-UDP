@@ -16,11 +16,12 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Car control via ESP8266"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.androidclient.MainActivity"
-            android:label="@string/app_name" >
+            android:label="Car control via ESP8266 by CMMC" 
+             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

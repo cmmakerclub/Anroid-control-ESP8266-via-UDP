@@ -24,6 +24,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements SensorEventListener{
 	String value;
 	float sensor;
-	int UDP_SERVER_PORT = 12345;
+	int UDP_SERVER_PORT = 12345,motorSpeed = 0;
 	TextView textResponse;
 	//EditText editTextAddress; //editTextPort; 
 	//Button buttonConnect, buttonClear;
@@ -51,6 +52,7 @@ public class MainActivity extends Activity implements SensorEventListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main); 
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
 		 	
 			          buttonCh1 = (Button)findViewById(R.id.buttonCh1);
@@ -280,6 +282,14 @@ public class MainActivity extends Activity implements SensorEventListener{
 		  protected void onPostExecute(Void result) {
 		  // textResponse.setText(response);
 			  //Toast.makeText(getApplicationContext(), "this is my Toast message!!! =)",Toast.LENGTH_SHORT).show();
+			  motorSpeed = Math.abs((int)Math.round( mLastX*20));
+			  if(motorSpeed > 100){
+				  motorSpeed = 100; 
+			  }
+			  if(motorSpeed < 2){
+				  motorSpeed = 0; 
+			  }
+			  textResponse.setText("Motor speed "+motorSpeed+"%");
 		   super.onPostExecute(result);
 		//super.isCancelled();
 		  }
